@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Participación en clase</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module" src="app.js"></script>
+  </head>
+  <body class="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">
+      📚 Participación en clase
+    </h1>
+
+    <!-- Selección de clase -->
+    <div class="flex gap-2 mb-6">
+      <select
+        id="claseSelect"
+        class="border rounded-lg px-3 py-2 shadow-sm focus:ring focus:ring-blue-300"
+      >
+        <option value="">-- Selecciona una clase --</option>
+      </select>
+      <button
+        id="btnCargarClase"
+        class="bg-indigo-500 text-white px-4 py-2 rounded-lg shadow hover:bg-indigo-600"
+      >
+        📂 Cargar clase
+      </button>
+    </div>
+
+    <!-- Alumno seleccionado -->
+    <div class="mb-6 text-center hidden" id="panelAlumno">
+      <div class="text-lg font-semibold text-gray-700">
+        Alumno seleccionado:
+      </div>
+      <div
+        id="alumno"
+        class="text-2xl font-bold text-indigo-600 mt-2 border rounded-lg px-6 py-2 bg-white shadow"
+      >
+        ---
+      </div>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="flex gap-4 mb-6 hidden" id="panelAcciones">
+      <button
+        id="btnElegir"
+        class="bg-yellow-400 px-4 py-2 rounded-lg font-semibold shadow hover:bg-yellow-500"
+      >
+        🎲 Elegir alumno
+      </button>
+      <button
+        id="btnBien"
+        class="bg-green-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-green-600"
+      >
+        ✅ Bien
+      </button>
+      <button
+        id="btnMal"
+        class="bg-red-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-red-600"
+      >
+        ❌ Mal
+      </button>
+    </div>
+
+    <!-- Tabla -->
+    <div class="overflow-x-auto w-full max-w-lg hidden" id="panelTabla">
+      <table class="w-full border-collapse bg-white shadow rounded-lg">
+        <thead>
+          <tr class="bg-gray-200 text-gray-700">
+            <th class="px-4 py-2 text-left">Alumno</th>
+            <th class="px-4 py-2 text-left">Clase</th>
+            <th class="px-4 py-2">✅ Bien</th>
+            <th class="px-4 py-2">❌ Mal</th>
+          </tr>
+        </thead>
+        <tbody id="cuerpoTabla" class="divide-y divide-gray-200"></tbody>
+      </table>
+    </div>
+  </body>
+</html>

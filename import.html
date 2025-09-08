@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>📥 Importar alumnos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import {
+        getAuth,
+        signInAnonymously,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+      import {
+        getFirestore,
+        setDoc,
+        doc,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+      // 🔹 Configuración Firebase
+      const firebaseConfig = {
+        apiKey: "AIzaSyBICN6ie-yV2dL3pQeKnR_qFFQ-LsAkuVs",
+        authDomain: "evaluacion-continua-39a84.firebaseapp.com",
+        projectId: "evaluacion-continua-39a84",
+        storageBucket: "evaluacion-continua-39a84.firebasestorage.app",
+        messagingSenderId: "1073788724297",
+        appId: "1:1073788724297:web:ecd14963702acdc0054b98",
+        measurementId: "G-1QSK510FL1",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const db = getFirestore(app);
+
+      // 🔹 Login anónimo
+      signInAnonymously(auth).catch((err) => console.error("Auth error:", err));
+
+      const USUARIO_AUTORIZADO = "profe123"; // cambia esto por tu clave secreta
+
+      // 🔹 Mostrar vista previa
+      window.previsualizar = function () {
+        const texto = document.getElementById("entrada").value.trim();
+        const cuerpo = document.getElementById("previewBody");
+        cuerpo.innerHTML = "";
+
+        if (!texto) {
+          alert("⚠️ Pega primero los alumnos desde Excel.");
+          return;
+        }
+
+        const filas = texto.split("\n").map((linea) => linea.split(/\t+/));
+
+        filas.forEach((f) => {
+          let [grupo, apellido1, apellido2, nombre] = f;
+          if (!nombre) return;
+
+          const filaHTML = `
+            <tr class="hover:bg-gray-50">
+              <td class="px-4 py-2">${grupo || ""}</td>
+              <td class="px-4 py-2">${apellido1 || ""}</td>
+              <td class="px-4 py-2">${apellido2 || ""}</td>
+              <td class="px-4 py-2 font-semibold text-gray-700">${nombre}</td>
+            </tr>
+          `;
+          cuerpo.innerHTML += filaHTML;
+        });
+
+        document.getElementById("previewTable").classList.remove("hidden");
+      };
+
+      // 🔹 Importar a Firestore
+      window.importar = async function () {
+        const usuario = document.getElementById("usuario").value.trim();
+        if (usuario !== USUARIO_AUTORIZADO) {
+          alert("No autorizado ❌");
+          return;
+        }
+
+        const texto = document.getElementById("entrada").value.trim();
+        if (!texto) {
+          alert("⚠️ Pega aquí los alumnos desde Excel.");
+          return;
+        }
+
+        const filas = texto.split("\n").map((linea) => linea.split(/\t+/));
+
+        for (let i = 0; i < filas.length; i++) {
+          let [grupo, apellido1, apellido2, nombre] = filas[i];
+          if (!nombre) continue;
+
+          const id = `${grupo || ""}-${apellido1 || ""}-${
+            apellido2 || ""
+          }-${nombre}`
+            .replace(/\s+/g, "_")
+            .toLowerCase();
+
+          await setDoc(doc(db, "alumnos", id), {
+            grupo: grupo || "",
+            apellido1: apellido1 || "",
+            apellido2: apellido2 || "",
+            nombre: nombre || "",
+            bien: 0,
+            mal: 0,
+          });
+        }
+
+        alert("✅ Alumnos importados correctamente");
+        document.getElementById("entrada").value = "";
+        document.getElementById("previewBody").innerHTML = "";
+        document.getElementById("previewTable").classList.add("hidden");
+      };
+    </script>
+  </head>
+  <body class="min-h-screen bg-gray-100 flex flex-col items-center p-6">
+    <h1 class="text-2xl font-bold text-gray-800 mb-6">📥 Importar alumnos</h1>
+
+    <div class="w-full max-w-2xl bg-white shadow rounded-2xl p-6 space-y-4">
+      <!-- Usuario autorizado -->
+      <div>
+        <label class="block font-semibold text-gray-700 mb-1"
+          >Usuario autorizado</label
+        >
+        <input
+          type="password"
+          id="usuario"
+          placeholder="Introduce tu clave secreta"
+          class="w-full border rounded-lg px-3 py-2 shadow-sm focus:ring focus:ring-indigo-300"
+        />
+      </div>
+
+      <!-- Instrucciones -->
+      <div class="text-gray-600 text-sm bg-gray-50 p-3 rounded-lg">
+        Pega las filas copiadas desde Excel en este formato:
+        <br />
+        <b>Grupo | Apellido1 | Apellido2 | Nombre</b>
+      </div>
+
+      <!-- Textarea -->
+      <textarea
+        id="entrada"
+        rows="8"
+        placeholder="Ejemplo:\n1A\tPérez\tLópez\tMaría\n1A\tGarcía\tRuiz\tJuan"
+        class="w-full border rounded-lg px-3 py-2 shadow-sm focus:ring focus:ring-indigo-300"
+      ></textarea>
+
+      <!-- Botones -->
+      <div class="flex gap-2">
+        <button
+          onclick="previsualizar()"
+          class="flex-1 bg-yellow-400 text-black px-4 py-2 rounded-lg font-semibold shadow hover:bg-yellow-500"
+        >
+          👀 Previsualizar
+        </button>
+        <button
+          onclick="importar()"
+          class="flex-1 bg-indigo-500 text-white px-4 py-2 rounded-lg font-semibold shadow hover:bg-indigo-600"
+        >
+          🚀 Importar
+        </button>
+      </div>
+
+      <!-- Tabla de previsualización -->
+      <div
+        id="previewTable"
+        class="overflow-x-auto mt-4 hidden border rounded-lg shadow"
+      >
+        <table class="w-full border-collapse">
+          <thead class="bg-gray-200 text-gray-700">
+            <tr>
+              <th class="px-4 py-2 text-left">Grupo</th>
+              <th class="px-4 py-2 text-left">Apellido1</th>
+              <th class="px-4 py-2 text-left">Apellido2</th>
+              <th class="px-4 py-2 text-left">Nombre</th>
+            </tr>
+          </thead>
+          <tbody id="previewBody" class="divide-y divide-gray-200"></tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+</html>
