@@ -2,6 +2,7 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>📥 Importar alumnos</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script type="module">
@@ -98,8 +99,10 @@
             apellido1: apellido1 || "",
             apellido2: apellido2 || "",
             nombre: nombre || "",
-            bien: 0,
-            mal: 0,
+            bienDeberes:0,
+            bienClase:0,
+            malDeberes:0,
+            malClase:0
           });
         }
 
@@ -138,7 +141,7 @@
       <textarea
         id="entrada"
         rows="8"
-        placeholder="Ejemplo:\n1A\tPérez\tLópez\tMaría\n1A\tGarcía\tRuiz\tJuan"
+        placeholder="1A Pérez López Laia&#10;1A García Ruiz Juan"
         class="w-full border rounded-lg px-3 py-2 shadow-sm focus:ring focus:ring-indigo-300"
       ></textarea>
 
