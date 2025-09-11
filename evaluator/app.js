@@ -11,6 +11,7 @@ import {
 let alumnos = [];
 let alumnoActual = null;
 let claseActual = "";
+const CONTRASENYA = "profe123"; // canvia-la per la teva contrasenya
 
 // 🔹 Cargar lista de alumnos de una clase
 async function cargarAlumnos(clase) {
@@ -229,6 +230,26 @@ document.addEventListener("DOMContentLoaded", async () => {
     if (!clase) return alert("Selecciona una clase");
     claseActual = clase;
     cargarAlumnos(clase);
+  });
+
+  document.getElementById("btnLogin").addEventListener("click", () => {
+    const valor = document.getElementById("passwordInput").value.trim();
+    if (valor === CONTRASENYA) {
+      // Mostrar el contingut principal i amagar el login
+      document.getElementById("loginPanel").classList.add("hidden");
+      document.getElementById("mainContent").classList.remove("hidden");
+    } else {
+      document.getElementById("loginError").classList.remove("hidden");
+    }
+  });
+
+  const inputPassword = document.getElementById("passwordInput");
+  const btnLogin = document.getElementById("btnLogin");
+
+  inputPassword.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+      btnLogin.click();
+    }
   });
 
   document.getElementById("btnElegir").addEventListener("click", elegirAlumno);
