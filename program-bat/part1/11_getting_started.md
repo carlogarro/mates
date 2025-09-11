@@ -56,6 +56,10 @@ lang: ca
   font-size: 0.85em;
   font-weight: bold;
 }
+
+section::after {
+  content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+}
 </style>
 
 # Primeres passes amb Python

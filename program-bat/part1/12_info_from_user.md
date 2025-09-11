@@ -56,78 +56,130 @@ lang: ca
   font-size: 0.85em;
   font-weight: bold;
 }
+
+section::after {
+  content: attr(data-marpit-pagination) '/' attr(data-marpit-pagination-total);
+}
+
 </style>
 
-# Interacció amb l'usuari en Python
+# Entrada de l’usuari i variables
 
-## Objectius
-
-- Aprendre a obtenir **entrada de l'usuari** amb `input()`
-- Emmagatzemar dades en **variables**
-- Concatenar **cadenes de text** amb variables
+- Escriure un programa que utilitzi **input** de l’usuari
+- Fer servir **variables** per emmagatzemar i mostrar dades
+- **Combinar cadenes de text (strings)** amb variables
 
 ---
 
-## Entrada de dades amb input()
+## Què és l’input?
+
+- **Input**: informació que l’usuari dona al programa.
+- A Python fem servir la funció `input()`
+- Pot mostrar un missatge de **pregunta** i esperar la resposta
 
 ```python
-nom = input("Quin és el teu nom? ")
-print("Hola, " + nom)
+name = input("What is your name? ")
+print("Hi there, " + name)
 ```
 
-`input()` demana dades a l'usuari.
-El valor retornat es pot guardar a una variable.
-Mostrem un missatge combinant text i variable.
+### Exemple d’execució
+
+```txt
+What is your name? Paul
+Hi there, Paul
+```
+
+---
 
 <div class="exercici-classe">
-Name twice
+  Name twice
 </div>
 
 ---
 
-## Emmagatzematge en variables
+## Variables
+
+Una variable és un lloc on s’emmagatzema un valor (text, número...).
+
+El valor pot canviar durant l’execució.
+
+El nom de la variable no afecta el contingut, però ha de ser clar i lògic.
 
 ```python
-correu = input("Quin és el teu correu electrònic? ")
-pseudonim = input("Quin és el teu pseudònim? ")
+name = input("What is your name? ")
+
+print("Hi, " + name + "!")
+print(name + " is quite a nice name.")
 ```
 
-Cada nova entrada pot ser assignada a variables diferents
-Les variables permeten reutilitzar i manipular la informació
+---
+
+## Bones pràctiques amb variables
+
+Escriure-les en anglès (recomanat)
+
+Utilitzar noms significatius: `name`, `email`, `age`.
+
+Evitar noms confusos com `x`, `temp2`, etc. (si no són necessaris)
 
 ---
 
 ## Concatenació de cadenes
 
+El símbol `+` uneix textos i/o variables.
+
 ```python
-print("El teu nom és " + nom + " i el teu pseudònim és " + pseudonim)
+# Les dues fan el mateix
+print("bon" + "dia")
+print("bon dia")
 ```
 
-L'operador suma `+` combina textos i variables
-Mostra informació de manera llegible i personalitzada
+```python
+name = input("What is your name? ")
+print("Hi " + name + "! Let me make sure: your name is " + name + "?")
+```
+
+<div class="exercici-classe">
+  Name and exclamation marks
+</div>
 
 ---
 
-## Exemple complet
+## Múltiples inputs
 
 ```python
-nom = input("Quin és el teu nom? ")
-correu = input("Quin és el teu correu electrònic? ")
-pseudonim = input("Quin és el teu pseudònim? ")
-```
+name = input("What is your name? ")
+email = input("What is your email address? ")
+nickname = input("What is your nickname? ")
 
-```python
-print("Comprovem que tenim la informació correcta:")
-print("El teu nom: " + nom)
-print("El teu correu electrònic: " + correu)
-print("El teu pseudònim: " + pseudonim)
+print("Let's make sure we got this right")
+print("Your name: " + name)
+print("Your email address: " + email)
+print("Your nickname: " + nickname)
 ```
 
 ---
 
-## Notes importants
+## Sobreescriptura de variables
 
-Cada crida a `input()` pot guardar el valor en una variable
+Si una variable rep un nou input, perd el valor anterior
 
-- Serveix per concatenar cadenes i variables
-- És recomanable utilitzar noms descriptius per a les variables
+```python
+address = input("What is your address? ")
+print("So you live at " + address)
+address = input("Please type in a new address: ")
+print("Your address is now " + address)
+```
+
+<div class="exercici-classe">
+Name and address
+
+Fix the code: Utterances
+
+</div>
+
+---
+
+<div class="exercici-casa">
+  Story
+</div>
