@@ -1,0 +1,964 @@
+<!DOCTYPE HTML>
+<html lang="ca" class="light sidebar-visible" dir="ltr">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Matemàtiques Aplicades a les Ciències Socials II</title>
+        <meta name="robots" content="noindex">
+
+
+        <!-- Custom HTML head -->
+        <link href="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraph.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/jsxgraph/distrib/jsxgraphcore.js" charset="UTF-8"></script>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff">
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" id="highlight-css" href="highlight.css">
+        <link rel="stylesheet" id="tomorrow-night-css" href="tomorrow-night.css">
+        <link rel="stylesheet" id="ayu-highlight-css" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+        <!-- MathJax -->
+        <script async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+        <!-- Provide site root and default themes to javascript -->
+        <script>
+            const path_to_root = "";
+            const default_light_theme = "light";
+            const default_dark_theme = "navy";
+        </script>
+        <!-- Start loading toc.js asap -->
+        <script src="toc.js"></script>
+    </head>
+    <body>
+    <div id="mdbook-help-container">
+        <div id="mdbook-help-popup">
+            <h2 class="mdbook-help-title">Keyboard shortcuts</h2>
+            <div>
+                <p>Press <kbd>←</kbd> or <kbd>→</kbd> to navigate between chapters</p>
+                <p>Press <kbd>S</kbd> or <kbd>/</kbd> to search in the book</p>
+                <p>Press <kbd>?</kbd> to show this help</p>
+                <p>Press <kbd>Esc</kbd> to hide this help</p>
+            </div>
+        </div>
+    </div>
+    <div id="body-container">
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                let theme = localStorage.getItem('mdbook-theme');
+                let sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            const default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? default_dark_theme : default_light_theme;
+            let theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            const html = document.documentElement;
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add("js");
+        </script>
+
+        <input type="checkbox" id="sidebar-toggle-anchor" class="hidden">
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            let sidebar = null;
+            const sidebar_toggle = document.getElementById("sidebar-toggle-anchor");
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            sidebar_toggle.checked = sidebar === 'visible';
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <!-- populated by js -->
+            <mdbook-sidebar-scrollbox class="sidebar-scrollbox"></mdbook-sidebar-scrollbox>
+            <noscript>
+                <iframe class="sidebar-iframe-outer" src="toc.html"></iframe>
+            </noscript>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle">
+                <div class="sidebar-resize-indicator"></div>
+            </div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky">
+                    <div class="left-buttons">
+                        <label id="sidebar-toggle" class="icon-button" for="sidebar-toggle-anchor" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </label>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="default_theme">Auto</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search (`/`)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="/ s" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Matemàtiques Aplicades a les Ciències Socials II</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="temari-i-criteris-de-qualificació"><a class="header" href="#temari-i-criteris-de-qualificació">Temari i criteris de qualificació</a></h1>
+<h2 id="temari"><a class="header" href="#temari">Temari</a></h2>
+<h3 id="Àlgebra-lineal"><a class="header" href="#Àlgebra-lineal">Àlgebra lineal</a></h3>
+<ul>
+<li>Operacions amb matrius: suma, producte. Equacions matricials (2 x 2).</li>
+<li>Resolució de sistemes d’equacions sense paràmetres. Problemes modelitzables mitjançant sistemes d’equacions.</li>
+</ul>
+<h3 id="càlcul"><a class="header" href="#càlcul">Càlcul</a></h3>
+<ul>
+<li>Identificació, representació i anàlisi de les propietats de funcions polinòmiques, exponencials, logarítmiques i funcions a trossos.</li>
+<li>Càlcul de límits de funcions racionals. Aplicació al càlcul d’asímptotes horitzontals i verticals d’aquestes funcions.</li>
+<li>Càlcul de derivades de funcions. Estudi local d’una funció: continuïtat, derivabilitat, extrems relatius. Creixement i decreixement d’una funció.</li>
+<li>Resolució de problemes d’optimització.</li>
+</ul>
+<h3 id="probabilitat-i-estadística"><a class="header" href="#probabilitat-i-estadística">Probabilitat i estadística</a></h3>
+<ul>
+<li>
+<p><strong>Probabilitat</strong></p>
+<ul>
+<li>Càlcul de probabilitats. Probabilitat condicionada. Independència. Diagrames d’arbre i taules de contingència.</li>
+<li>Teorema de Bayes.</li>
+<li>Variables aleatòries discretes: la distribució binomial. Variables aleatòries contínues: la distribució normal.</li>
+<li>Aproximació de la distribució binomial per la distribució normal.</li>
+</ul>
+</li>
+<li>
+<p><strong>Inferència</strong></p>
+<ul>
+<li>Introducció al mostreig estadístic.</li>
+<li>Estimació puntual de la mitjana, la proporció i la desviació típica.</li>
+<li>Intervals de confiança basats en la distribució normal.</li>
+</ul>
+</li>
+</ul>
+<hr />
+<h2 id="criteris-de-qualificació"><a class="header" href="#criteris-de-qualificació">Criteris de qualificació</a></h2>
+<p>S'obtindrà una nota del trimestre \(T\) a partir de la nota de l'examen parcial del trimestre \(P_1\) i la nota de l'examen trimestral \(P_2\) segons l'expressió següent:</p>
+<p>\[
+T = 0.4 \cdot P_1 + 0.6 \cdot P_2
+\]</p>
+<p>A la primera avaluació es farà una prova inicial \(P_0\), i la nota de proves es calcularà així:</p>
+<p>\[
+T = 0.1 \cdot P_0 + 0.3 \cdot P_1 + 0.6 \cdot P_2
+\]</p>
+<hr />
+<h3 id="superació-del-trimestre"><a class="header" href="#superació-del-trimestre">Superació del trimestre</a></h3>
+<p>Es supera el trimestre si la nota \(T\) és igual o superior a 5.</p>
+<hr />
+<h3 id="recuperacions-trimestrals"><a class="header" href="#recuperacions-trimestrals">Recuperacions trimestrals</a></h3>
+<p>Per al l'alumnat que no hagi superat el primer o segon trimestres, es podran establir al llarg del curs mecanismes de recuperació. Si fos el cas, la prova a realitzar serà una prova específica.</p>
+<p>Es recupera el trimestre si la nota de recuperació trimestral és igual o superior a 5.</p>
+<p>L’alumnat que vulgui millorar la seva qualificació es podrà presentar a una prova específica en acabar el trimestre.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="trimestre-1-funcions"><a class="header" href="#trimestre-1-funcions">Trimestre 1: Funcions</a></h1>
+<p>Una <strong>funció</strong> és una relació entre dues magnituds, on a <strong>cada valor d’entrada</strong> (anomenat \(x\), o <strong>variable independent</strong>) li correspon <strong>un únic valor de sortida</strong> (anomenat \(y\), o <strong>variable dependent</strong>).</p>
+<p>Dit d’una altra manera, una funció és una regla que assigna a cada valor d’un conjunt (el <strong>domini</strong>) un únic valor d’un altre conjunt (el <strong>codomini</strong>).</p>
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/64/Codomain2.SVG" alt="Funció com una màquina" width="400"/>
+<p>Il·lustració que mostra \( f \), una funció amb domini \( X \) i codomini \( Y \). L’oval petit dins de \( Y \) és la imatge de \( f \), de vegades anomenada rang de \( f \).</p>
+<h2 id="per-a-què-serveixen"><a class="header" href="#per-a-què-serveixen">Per a què serveixen?</a></h2>
+<p>Les funcions són una eina fonamental per a descriure situacions del món real. Alguns exemples habituals:</p>
+<ul>
+<li><strong>Economia</strong>: El benefici d’una empresa en funció del nombre de productes venuts.</li>
+<li><strong>Demografia</strong>: L’evolució de la població d’un país amb el pas dels anys.</li>
+<li><strong>Màrqueting</strong>: La relació entre el pressupost publicitari i les vendes.</li>
+<li><strong>Estadística</strong>: Relació entre dues variables d’un estudi.</li>
+</ul>
+<h2 id="exemples-senzills"><a class="header" href="#exemples-senzills">Exemples senzills</a></h2>
+<h3 id="1-preu-total-dun-producte"><a class="header" href="#1-preu-total-dun-producte">1. Preu total d’un producte</a></h3>
+<p>Si un producte val 3 €, el preu total segons la quantitat comprada és:</p>
+<p>\[
+\text{Preu}(x) = 3 \cdot x
+\]</p>
+<p>On \(x\) és el nombre d’unitats.</p>
+<h3 id="2-Àrea-dun-quadrat"><a class="header" href="#2-Àrea-dun-quadrat">2. Àrea d’un quadrat</a></h3>
+<p>Si volem saber l’àrea d’un quadrat en funció del costat:</p>
+<p>\[
+A(x) = x^2
+\]</p>
+<h3 id="3-funció-amb-restricció-a-trossos"><a class="header" href="#3-funció-amb-restricció-a-trossos">3. Funció amb restricció (a trossos)</a></h3>
+<p>Suposem que una empresa cobra 10 € per hora, però només treballa un màxim de 8 hores al dia. Podem definir la funció:</p>
+<p>\[
+f(x) =
+\begin{cases}
+10\cdot x &amp; \text{si } 0 \le x \le 8 \\
+\text{no definida} &amp; \text{si } x &gt; 8
+\end{cases}
+\]</p>
+<h2 id="què-estudiarem-sobre-les-funcions"><a class="header" href="#què-estudiarem-sobre-les-funcions">Què estudiarem sobre les funcions?</a></h2>
+<ul>
+<li>El seu <strong>domini</strong> i la seva <strong>imatge</strong>.</li>
+<li>Tipus de funcions: <strong>polinòmiques, racionals, exponencials, logarítmiques</strong> i amb <strong>arrels</strong>.</li>
+<li>Les seves propietats: continuïtat, creixement, derivabilitat...</li>
+<li>La seva aplicació per <strong>resoldre problemes reals</strong>.</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="punts-duna-funció"><a class="header" href="#punts-duna-funció">Punts d’una funció</a></h1>
+<p>Una funció relaciona cada valor d’entrada \( x \) amb un valor de sortida \( f(x) \). Aquestes parelles s’anomenen <strong>punts de la funció</strong>, i es poden representar com \( (x, f(x)) \).</p>
+<h2 id="imatge"><a class="header" href="#imatge">Imatge</a></h2>
+<p>La <strong>imatge</strong> d’un valor \( x \) és el resultat de la funció:</p>
+<p>\[
+f(x) = 2x + 1 \quad \Rightarrow \quad f(3) = 7
+\]</p>
+<p>La imatge de 3 és 7.</p>
+<h2 id="antiimatge"><a class="header" href="#antiimatge">Antiimatge</a></h2>
+<p>L’<strong>antiimatge</strong> d’un valor \( y \) és el conjunt de \( x \) tals que \( f(x) = y \).</p>
+<p>Exemple: \( f(x) = x^2 \), quina és l’antiimatge de 9?</p>
+<p>\[
+x^2 = 9 \Rightarrow x = \pm 3
+\]</p>
+<p>L’antiimatge de 9 són 3 i -3.</p>
+<div id="jxgimatge" class="jxgbox" style="width:400px; height:300px;"></div>
+<script>
+  var board1 = JXG.JSXGraph.initBoard('jxgimatge', {
+    boundingbox: [-5, 5, 5, -2],
+    axis: true,
+    showNavigation: true,
+    showCopyright: false
+  });
+var slider = board1.create('slider', [[-5,0], [5,0], [-5, 0, 5]], {name:'x', snapWidth: 0.1});
+var graphPoint = board1.create('point', [
+  function() { return slider.Value(); },
+  function() { return Math.pow(slider.Value(), 2); }
+], {name: function () {
+        const yVal = Math.pow(slider.Value(), 2);
+        return yVal.toFixed(2); // mostra només 2 decimals
+      }, color: 'blue'});
+board1.create('functiongraph', [
+  function(x){ return x*x; },
+  -5, 5
+]);
+var line = board1.create('segment', [
+    [function() { return slider.Value(); }, 0], // Punt a l'eix X
+    graphPoint
+  ], {
+    strokeColor: 'red',
+    dash: 2,  // Línia discontinua
+    name: 'linea'
+  });
+</script>
+<h2 id="punt-de-tall-amb-els-eixos"><a class="header" href="#punt-de-tall-amb-els-eixos">Punt de tall amb els eixos</a></h2>
+<ul>
+<li>Eix Y: \( f(0) \)</li>
+<li>Eix X: resolem \( f(x) = 0 \)</li>
+</ul>
+<h2 id="taula-de-valors"><a class="header" href="#taula-de-valors">Taula de valors</a></h2>
+<div class="table-wrapper"><table><thead><tr><th>x</th><th>f(x)</th></tr></thead><tbody>
+<tr><td>-2</td><td>-3</td></tr>
+<tr><td>-1</td><td>-1</td></tr>
+<tr><td>0</td><td>1</td></tr>
+<tr><td>1</td><td>3</td></tr>
+<tr><td>2</td><td>5</td></tr>
+</tbody></table>
+</div>
+<p>Gràficament, aquests són punts \( (x, f(x)) \) al pla.</p>
+<h2 id="representació-gràfica"><a class="header" href="#representació-gràfica">Representació gràfica</a></h2>
+<p>La gràfica d’una funció és la representació visual del conjunt de parelles (x, f(x)). Ens permet entendre d’un cop d’ull com es comporta la funció.</p>
+<p>Per exemple, la gràfica de f(x) = 2x + 3 és una recta amb pendent 2 i ordenada a l’origen 3.</p>
+<p>A sota pots veure la gràfica de \( f(x) = x^2 \). Pots moure el punt per veure la seva imatge.</p>
+<div id="punts" class="jxgbox" style="width:500px; height:200px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('punts', { boundingbox: [-5,2,5,-2], showCopyright: false});
+  board.create('point', [-2,1]);
+  var q = board.create('point', [3,0]);
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="domini-duna-funció"><a class="header" href="#domini-duna-funció">Domini d’una funció</a></h1>
+<p>El domini d’una funció és el conjunt de valors d’entrada (normalment valors de x) pels quals la funció està definida. És a dir, són els valors per als quals podem calcular el valor de la funció sense que aparegui cap problema (com una divisió per zero o una arrel quadrada de nombre negatiu, depenent del tipus de funció).</p>
+<p>Al següent exemple veiem que la funció està definida per tots els nombres reals excepte en l'interval entre dos i sis.</p>
+<div id="funcio-regio" class="jxgbox" style="width:600px; height:300px;"></div>
+<script>
+var board = JXG.JSXGraph.initBoard('funcio-regio', {
+  boundingbox: [-1, 8, 10, -5],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+
+// Funció definida per x < 2
+var f1 = board.create('functiongraph', function(x) {
+  if (x < 2) return x;
+  else return NaN;
+}, {strokeColor: '#0077CC', strokeWidth: 2});
+
+// Funció definida per x > 6
+var f2 = board.create('functiongraph', function(x) {
+  if (x > 6) return x;
+  else return NaN;
+}, {strokeColor: '#0077CC', strokeWidth: 2});
+
+// Línies verticals a 2 i 6 per marcar la regió buida
+board.create('line', [[2, -5], [2, 8]], {strokeColor:'#CC0000', strokeWidth:2, dash:2});
+board.create('line', [[6, -5], [6, 8]], {strokeColor:'#CC0000', strokeWidth:2, dash:2});
+</script><div style="break-before: page; page-break-before: always;"></div><h1 id="funció-polinòmica"><a class="header" href="#funció-polinòmica">Funció polinòmica</a></h1>
+<p>Una funció polinòmica és una funció de la forma:</p>
+<p>\[
+f(x) = a_n x^n + a_{n-1} x^{n-1} + \cdots + a_1 x + a_0
+\]</p>
+<p>on \(a_0, a_1, \dots, a_n\) són coeficients reals i \(n\) un enter no negatiu que indica el grau del polinomi.</p>
+<h2 id="tipus-de-polinomis"><a class="header" href="#tipus-de-polinomis">Tipus de polinomis</a></h2>
+<ul>
+<li><strong>Polinomi de grau 2 (quadràtic):</strong></li>
+</ul>
+<p>\[
+f(x) = a x^2 + b x + c
+\]</p>
+<div id="jxgbox2" class="jxgbox" style="width:400px; height:300px;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const board = JXG.JSXGraph.initBoard('jxgbox2', {
+      boundingbox: [-5, 10, 5, -10],
+      axis: true,
+      showNavigation: true,
+      showCopyright: false
+    });
+    board.create('functiongraph', [
+      function(x) {
+        return x*x - 2*x - 3;
+      },
+      -5, 5
+    ], {
+      strokeColor: 'blue',
+      strokeWidth: 2
+    });
+    const root1 = board.create('point', [-1, 0], { name: 'x₁ = -1', fixed: true, color: 'red' });
+    const root2 = board.create('point', [3, 0], { name: 'x₂ = 3', fixed: true, color: 'red' });
+    const vertex = board.create('point', [1, -4], { name: 'V(1, -4)', fixed: true, color: 'green' });
+    board.create('text', [-4, -6, 'Funció polinòmica de segon grau:\n f(x) = x^2 - 2x - 3'], {fontSize: 14, anchorX: 'left'});
+  });
+</script>
+<ul>
+<li><strong>Polinomi de grau 3 (cúbic):</strong></li>
+</ul>
+<p>\[
+f(x) = a x^3 + b x^2 + c x + d
+\]</p>
+<div id="jxgbox_cubic" class="jxgbox" style="width:400px; height:300px;"></div>
+<script>
+  window.addEventListener("DOMContentLoaded", function () {
+    const board = JXG.JSXGraph.initBoard('jxgbox_cubic', {
+      boundingbox: [-3, 10, 5, -10],
+      axis: true,
+      showNavigation: true,
+      showCopyright: false
+    });
+    // Gràfica de la funció cúbica
+    board.create('functiongraph', [
+      function(x) {
+        return x*x*x - 3*x*x + 2;
+      },
+      -3, 5
+    ], {
+      strokeColor: 'blue',
+      strokeWidth: 2
+    });
+  });
+</script>
+<h2 id="domini"><a class="header" href="#domini">Domini</a></h2>
+<p>El domini d’una funció polinòmica és tot \( \mathbb{R} \), ja que està definida per a tots els valors reals.</p>
+<div id="jxgbox" class="jxgbox" style="width:600px; height:300px;"></div>
+<script>
+var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [-2, 10, 4, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+var f = board.create('functiongraph', function(x) {
+  return x*x*x - 3*x*x + 2;
+}, {strokeColor: '#0077CC', strokeWidth: 2});
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="funció-racional"><a class="header" href="#funció-racional">Funció racional</a></h1>
+<p>Una <strong>funció racional</strong> és el quocient de dues funcions polinòmiques, és a dir, una funció de la forma:</p>
+<p>\[
+f(x) = \frac{P(x)}{Q(x)}
+\]</p>
+<p>on \(P(x)\) i \(Q(x)\) són polinomis, i \(Q(x) \neq 0\).</p>
+<h2 id="domini-1"><a class="header" href="#domini-1">Domini</a></h2>
+<p>El domini d'una funció racional són tots els valors reals per als quals el denominador \(Q(x)\) no és zero, ja que dividir per zero no està definit.</p>
+<p>\[
+\operatorname{dom}(f) = { x \in \mathbb{R} \mid Q(x) \neq 0 }
+\]</p>
+<ol>
+<li>
+<p><strong>Identifica el denominador</strong> \( Q(x)\).</p>
+</li>
+<li>
+<p><strong>Resol l’equació</strong>:
+\[
+Q(x) = 0
+\]</p>
+<ul>
+<li>Troba quins valors de \( x \) <strong>anul·len el denominador</strong>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Exclou aquests valors</strong> del domini.</p>
+</li>
+<li>
+<p><strong>Escriu el domini</strong> com:</p>
+<ul>
+<li>Una frase ("Tots els nombres reals excepte...")</li>
+<li>O en <strong>forma d’intervals</strong>, excloent els punts trobats.</li>
+</ul>
+</li>
+</ol>
+<h2 id="exemple-trobar-el-domini-duna-funció-racional"><a class="header" href="#exemple-trobar-el-domini-duna-funció-racional">Exemple: Trobar el domini d’una funció racional</a></h2>
+<h3 id="funció-donada"><a class="header" href="#funció-donada">Funció donada:</a></h3>
+<p>\[
+f(x) = \frac{2x + 1}{x^2 - 4}
+\]</p>
+<h3 id="passos-per-trobar-el-domini"><a class="header" href="#passos-per-trobar-el-domini">Passos per trobar el domini:</a></h3>
+<p><strong>1. Identifica el denominador:</strong><br />
+\[
+Q(x) = x^2 - 4
+\]</p>
+<p><strong>2. Troba quan el denominador s’anul·la:</strong><br />
+\[
+x^2 - 4 = 0 \Rightarrow x = \pm2
+\]</p>
+<p><strong>3. El denominador és 0 quan \( x = 2 \) o \( x = -2 \)</strong><br />
+Aquests <strong>valors s’han d’excloure</strong> del domini perquè la funció no està definida en aquests punts.</p>
+<p><strong>Forma amb intervals:</strong>
+\[
+\operatorname{dom}(f) = (-\infty, -2) \cup (-2, 2) \cup (2, \infty)
+\]</p>
+<p><strong>Forma descriptiva:</strong><br />
+Tots els nombres reals <strong>excepte</strong> \( x = -2 \) i \( x = 2 \)</p>
+<h3 id="observació"><a class="header" href="#observació">Observació:</a></h3>
+<ul>
+<li>El numerador \( 2x + 1 \) pot ser qualsevol valor; no afecta el domini.</li>
+<li>El problema està únicament en el <strong>denominador</strong>.</li>
+</ul>
+<h2 id="exemples"><a class="header" href="#exemples">Exemples</a></h2>
+<p>\[
+f(x) = \frac{x^2 - 1}{x - 3}
+\]</p>
+<p>el domini és \(\mathbb{R} \setminus \{3\}\), és a dir, tots els reals menys \(x=3\). Ja que si la \(x=3\) el denominador val zero.</p>
+<div id="jxgbox" class="jxgbox" style="width:500px; height:300px; margin: 0 auto;"></div>
+<script>
+  const board = JXG.JSXGraph.initBoard('jxgbox', {
+    boundingbox: [-15, 20, 20, -15],
+    axis: true,
+    showCopyright: false
+  });
+  const f = function(x) {
+    return (x*x - 1) / (x - 3);
+  };
+  board.create('functiongraph', f, {strokeColor:'#00a', strokeWidth:2});
+  board.create('line', [[3, -5], [3, 5]], {
+    strokeColor: 'red', dash: 2, strokeWidth: 1, fixed: true
+  });
+</script>
+<hr />
+<p>\[
+f(x) = \frac{1}{x - 3}
+\]</p>
+<p>La funció no està definida quan el denominador s’anul·la:
+\( x - 3 = 0 \Rightarrow x = 3 \)</p>
+<p>Per tant,</p>
+<p>\[
+\operatorname{dom}(f) = \mathbb{R} \setminus {3}
+\]</p>
+<div id="jxgbox1" class="jxgbox" style="width:400px; height:300px; margin: 0 auto;"></div>
+<script>
+  const b1 = JXG.JSXGraph.initBoard('jxgbox1', {
+    boundingbox: [-5, 5, 10, -5],
+    axis: true,
+    showCopyright: false
+  });
+b1.create('functiongraph', [
+function(x) {
+return 1 / (x - 3);
+}, -5, 10
+], {
+strokeColor: 'blue',
+dash: 0
+});
+b1.create('line', [[3, -10], [3, 10]], {
+strokeColor: 'red',
+dash: 2,
+straightFirst: false,
+straightLast: false
+});
+</script>
+<hr />
+<p>\[
+f(x) = \frac{x + 1}{x^2 - 4}
+\]</p>
+<p>Denominador: \( x^2 - 4 = 0 \Rightarrow x = \pm 2 \)</p>
+<p>Per tant,</p>
+<p>\[
+\operatorname{dom}(f) = \mathbb{R} \setminus \{-2, 2\}
+\]</p>
+<div id="jxgbox2" class="jxgbox" style="width:400px; height:300px; margin: 0 auto;"></div>
+<script>
+  const b2 = JXG.JSXGraph.initBoard('jxgbox2', {
+    boundingbox: [-5, 5, 5, -5],
+    axis: true,
+    showNavigation: true,
+    showCopyright: false
+  });
+b2.create('functiongraph', [
+function(x) {
+return (x + 1) / (x*x - 4);
+}, -5, 5
+], {
+strokeColor: 'blue'
+});
+b2.create('line', [[-2, -10], [-2, 10]], {
+strokeColor: 'red',
+dash: 2,
+straightFirst: false,
+straightLast: false
+});
+b2.create('line', [[2, -10], [2, 10]], {
+strokeColor: 'red',
+dash: 2,
+straightFirst: false,
+straightLast: false
+});
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="funció-exponencial"><a class="header" href="#funció-exponencial">Funció exponencial</a></h1>
+<p>Una <strong>funció exponencial</strong> és de la forma:</p>
+<p>\[
+f(x) = b^x
+\]</p>
+<p>on la base \(b\) és un nombre real positiu diferent de \(1\) (\(b &gt; 0, a \neq 1\)).</p>
+<div class="table-wrapper"><table><thead><tr><th>Tipus</th><th>Valor de \( b \)</th><th>Comportament</th></tr></thead><tbody>
+<tr><td>Creixement exponencial</td><td>\( b &gt; 1 \)</td><td>Creix amb el temps</td></tr>
+<tr><td>Decadència exponencial</td><td>\( 0 &lt; b &lt; 1 \)</td><td>Disminueix amb el temps</td></tr>
+</tbody></table>
+</div>
+<hr />
+<h2 id="domini-2"><a class="header" href="#domini-2">Domini</a></h2>
+<p>El domini de la funció exponencial és tot \(\mathbb{R}\):</p>
+<p>\[
+\mathrm{Dom}(f) = \mathbb{R}
+\]</p>
+<p>La funció està definida per a qualsevol nombre real \(x\).</p>
+<h2 id="exemples-1"><a class="header" href="#exemples-1">Exemples</a></h2>
+<h3 id="creixement-duna-població-que-es-duplica"><a class="header" href="#creixement-duna-població-que-es-duplica">Creixement d'una població que es duplica</a></h3>
+<p><strong>Context:</strong> Una població de bacteris es duplica cada hora.</p>
+<p><strong>Fórmula:</strong><br />
+\( P(t) = 100 \cdot 2^t \)</p>
+<p><strong>Explicació:</strong><br />
+Comença amb 100 bacteris. Cada hora, es multipliquen per 2.</p>
+<ul>
+<li>Després de 1 hora: \( 100 \cdot 2^1 = 200 \)</li>
+<li>Després de 2 hores: \( 100 \cdot 2^2 = 400 \)</li>
+<li>Després de 3 hores: \( 100 \cdot 2^3 = 800 \)</li>
+</ul>
+<div id="exponencialBacteris" class="jxgbox" style="width:500px; height:300px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('exponencialBacteris', {
+  boundingbox: [-2, 1000, 4, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+  const eB = function(x) {
+    return 100*Math.pow(2, x);
+  };
+  board.create('functiongraph', eB);
+  board.create('point', [0,100], {fixed: true});
+  board.create('point', [1,200], {fixed: true});
+  board.create('point', [2,400], {fixed: true});
+  board.create('point', [3,800], {fixed: true});
+</script>
+<hr />
+<h3 id="consum-duna-droga-al-cos"><a class="header" href="#consum-duna-droga-al-cos">Consum d’una droga al cos</a></h3>
+<p><strong>Context:</strong> El cos elimina un 30% de la dosi cada hora.</p>
+<p><strong>Fórmula:</strong><br />
+\( C(t) = 500 \cdot (0.7)^t \)</p>
+<p><strong>Explicació:</strong><br />
+Dosi inicial: 500 mg. Es manté el 70% cada hora.</p>
+<ul>
+<li>Després de 1 hora: \( 500 \cdot 0.7 = 350 \)</li>
+<li>Després de 2 hores: \( 500 \cdot (0.7)^2 = 245 \)</li>
+<li>Després de 3 hores: \( 500 \cdot (0.7)^3 = 171.5 \)</li>
+</ul>
+<div id="exponencialDroga" class="jxgbox" style="width:500px; height:300px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('exponencialDroga', {
+  boundingbox: [-2, 600, 20, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+  });
+  const eD = function(x) {
+    return 500*Math.pow(0.7, x);
+  };
+  board.create('functiongraph', eD);
+  board.create('point', [0,500], {fixed: true});
+  board.create('point', [1,350], {fixed: true});
+  board.create('point', [2,245], {fixed: true});
+  board.create('point', [3,171.5], {fixed: true});
+</script>
+<p>Molts cops ens trobarem amb una funció exponencial que té com a base el nombre \(e\)<sup class="footnote-reference" id="fr-note-1"><a href="#footnote-note">1</a></sup>.</p>
+<p>\[
+f(x) = e^x
+\]</p>
+<div id="exponencialE" class="jxgbox" style="width:500px; height:300px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('exponencialE', {
+  boundingbox: [-2, 10, 4, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+  const g = function(x) {
+    return Math.pow(Math.E, x);
+  };
+  board.create('functiongraph', g, {strokeColor:'#d22', strokeWidth:2});
+</script><hr>
+<ol class="footnote-definition"><li id="footnote-note">
+<p>El nombre e és un nombre irracional i trascendent aproximadament igual a 2,71828..., i és una de les constants matemàtiques més importants, com π. El nombre \(e\) s'anomena a vegades constant d'Euler, en honor del matemàtic suís Leonhard Euler i també constant de Napier, en honor del matemàtic escocès John Napier que va introduir els logaritmes. <a href="#fr-note-1">↩</a></p>
+</li>
+</ol><div style="break-before: page; page-break-before: always;"></div><h1 id="funció-logarítmica"><a class="header" href="#funció-logarítmica">Funció logarítmica</a></h1>
+<p>La <strong>funció logarítmica</strong> és la funció inversa de la funció exponencial. Té la forma:</p>
+<p>\[
+f(x) = \log_a(x)
+\]</p>
+<p>on \(a &gt; 0\) i \(a \neq 1\) és la base del logaritme.</p>
+<hr />
+<h2 id="domini-3"><a class="header" href="#domini-3">Domini</a></h2>
+<p>El domini de la funció logarítmica és l’ensemble dels nombres reals positius:</p>
+<p>\[
+\mathrm{Dom}(f) = (0, +\infty)
+\]</p>
+<p>Això vol dir que només està definida per a (x &gt; 0).</p>
+<hr />
+<h2 id="exemple-amb-gràfic"><a class="header" href="#exemple-amb-gràfic">Exemple amb gràfic</a></h2>
+<p>Considerem la funció logarítmica en base 2:</p>
+<p>\[
+f(x) = \log_2(x)
+\]</p>
+<div id="jxgbox" class="jxgbox" style="width:500px; height:300px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [-2, 10, 4, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+  const f = function(x) {
+    return Math.log(x) / Math.log(2);  // canvi base natural a base 2
+  };
+  board.create('functiongraph', f, {strokeColor:'#2a2', strokeWidth:2});
+  board.create('line', [[0, -5], [0, 5]], {
+    strokeColor: 'red', dash: 2, strokeWidth: 1, fixed: true
+  });
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="funció-amb-arrels-funció-radical"><a class="header" href="#funció-amb-arrels-funció-radical">Funció amb arrels (funció radical)</a></h1>
+<p>Una <strong>funció radical</strong> és una funció que inclou l'arrel n-èsima d'una variable, per exemple:</p>
+<p>\[
+f(x) = \sqrt{x} \quad \text{o} \quad f(x) = \sqrt[n]{x}
+\]</p>
+<p>El cas més comú és l'arrel quadrada, \(\sqrt{x}\).</p>
+<hr />
+<h2 id="domini-4"><a class="header" href="#domini-4">Domini</a></h2>
+<p>Perquè la funció estigui definida en els nombres reals, el radicand (el que està dins l'arrel) ha de ser major o igual que zero, si el grau de l'arrel és parell:</p>
+<p>\[
+\mathrm{Dom}(f) = { x \in \mathbb{R} \mid x \geq 0 }
+\]</p>
+<p>Per arrels d'ordre imparell (ex. \(\sqrt[3]{x}\)), el domini és tot \(\mathbb{R}\).</p>
+<hr />
+<h2 id="equivalència-amb-potències"><a class="header" href="#equivalència-amb-potències">Equivalència amb potències</a></h2>
+<p>L’arrel n-èsima d’un nombre es pot expressar com una potència amb exponent fraccionari:</p>
+<p>\[
+\sqrt[n]{x} = x^{\frac{1}{n}}
+\]</p>
+<p>Per exemple:</p>
+<p>\[
+\sqrt{x} = x^{\frac{1}{2}}
+\]</p>
+<p>Aquesta forma és molt útil per aplicar propietats de potències i per fer càlcul diferencial i integral.</p>
+<hr />
+<h2 id="exemple-arrel-quadrada"><a class="header" href="#exemple-arrel-quadrada">Exemple: arrel quadrada</a></h2>
+<p>Considerem la funció</p>
+<p>\[
+f(x) = \sqrt{x}
+\]</p>
+<div id="jxgbox" class="jxgbox" style="width:500px; height:300px;"></div>
+<script>
+  var board = JXG.JSXGraph.initBoard('jxgbox', {
+  boundingbox: [-2, 10, 4, -10],
+  axis: true,
+  pan: { enabled: true, needTwoFingers: false, needShift: false },
+  zoom: { enabled: true, factorX: 1.25, factorY: 1.25, wheel: true, needShift: false },
+  showCopyright: false
+});
+  const f = function(x) {
+    if (x < 0) return NaN; // fora del domini
+    return Math.sqrt(x);
+  };
+  board.create('functiongraph', f, {strokeColor:'#b1580f', strokeWidth:2});
+  board.create('point', [0, 0], {name: 'O', size: 3, fixed: true});
+</script>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="funcions-definides-a-trossos"><a class="header" href="#funcions-definides-a-trossos">Funcions definides a trossos</a></h1>
+<p>Una <strong>funció definida a trossos</strong> és una funció que pren diferents expressions segons el valor de l’entrada \(x\).</p>
+<h2 id="exemple"><a class="header" href="#exemple">Exemple</a></h2>
+<p>Definim la funció:</p>
+<p>\[
+f(x) =
+\begin{cases}
+x + 2 &amp; \text{si } x &lt; -1 \\
+x^2 &amp; \text{si } -1 \leq x &lt; 2 \\
+4 - x &amp; \text{si } x \geq 2
+\end{cases}
+\]</p>
+<div id="jxgbox-piecwise" class="jxgbox" style="width:500px; height:300px; margin: 0 auto;"></div>
+<script>
+  const board = JXG.JSXGraph.initBoard('jxgbox-piecwise', {
+    boundingbox: [-5, 5, 5, -2],
+    axis: true,
+    showNavigation: true,
+    showCopyright: false
+  });
+  // f(x) = x + 2, per x < -1
+  board.create('functiongraph', [
+    function (x) { return x + 2; },
+    -5, -1
+  ], {
+    strokeColor: 'blue'
+  });
+  // f(x) = x^2, per -1 <= x < 2
+  board.create('functiongraph', [
+    function (x) { return x * x; },
+    -1, 2
+  ], {
+    strokeColor: 'green'
+  });
+  // f(x) = 4 - x, per x >= 2
+  board.create('functiongraph', [
+    function (x) { return 4 - x; },
+    2, 5
+  ], {
+    strokeColor: 'orange'
+  });
+  // Cercles buits i plens per marcar continuïtat
+  board.create('point', [-1, 1], {face: 'o', size: 3, fixed: true, color: 'blue'});  // punt obert
+  board.create('point', [-1, 1], {size: 1, fixed: true, color: 'green'});  // ajuda pel segment
+  board.create('point', [2, 4], {face: 'o', size: 3, fixed: true, strokeColor: 'green', fillColor: 'white'});  // punt obert
+  board.create('point', [2, 2], {size: 3, fixed: true, color: 'orange'});  // punt tancat
+</script>
+<h3 id="domini-5"><a class="header" href="#domini-5">Domini:</a></h3>
+<p>La funció està definida per a <strong>tots els valors de</strong> \(x\), ja que cada cas cobreix una part del conjunt dels reals i no hi ha cap discontinuïtat de definició.</p>
+<p>\[
+\text{Domini} = \mathbb{R}
+\]</p>
+<hr />
+<h1 id="continuïtat-duna-funció-a-trossos"><a class="header" href="#continuïtat-duna-funció-a-trossos">Continuïtat d'una funció a trossos</a></h1>
+<p>Per estudiar si una <strong>funció definida a trossos</strong> és contínua, seguirem dos passos:</p>
+<h2 id="1-estudiar-la-continuïtat-de-cada-tros-per-separat"><a class="header" href="#1-estudiar-la-continuïtat-de-cada-tros-per-separat">1. Estudiar la continuïtat de cada tros per separat</a></h2>
+<p>Cada expressió de la funció ha de ser <strong>contínua</strong> dins del seu interval de definició. La majoria de funcions habituals ho són (polinòmiques, exponencials, logarítmiques, etc.), sempre que no tinguin punts problemàtics com divisions per zero o arrels parells de nombres negatius.</p>
+<p>Per exemple, si tenim:</p>
+<p>\[
+f(x) =
+\begin{cases}
+x^2 &amp; \text{si } x &lt; 1 \\
+3x + 1 &amp; \text{si } x \geq 1
+\end{cases}
+\]</p>
+<p>La funció \(x^2\) és contínua per a tots els reals. També ho és \(3x + 1\). Però això <strong>no garanteix</strong> que \(f(x)\) sigui contínua en tot \( \mathbb{R} \).</p>
+<h2 id="2-estudiar-les-fronteres-entre-els-intervals"><a class="header" href="#2-estudiar-les-fronteres-entre-els-intervals">2. Estudiar les fronteres entre els intervals</a></h2>
+<p>Els punts més crítics són els <strong>valors on canvia la definició de la funció</strong>, ja que poden aparèixer discontinuïtats. Aquests punts solen coincidir amb els extrems dels intervals.</p>
+<p>Per veure si \(f(x)\) és <strong>contínua en un punt \(a\)</strong> on canvia la definició, cal comprovar que:</p>
+<p>\[\lim_{x \to a^-} f(x) = \lim_{x \to a^+} f(x) = f(a)\]</p>
+<p>És a dir, que el límit per l'esquerra del punt frontera sigui igual al límit per la dreta del punt frontera i també sigui igual al valor de la funció en aquest punt.</p>
+<hr />
+<h3 id="exemple-1"><a class="header" href="#exemple-1">Exemple</a></h3>
+<p>\[
+f(x) =
+\begin{cases}
+x^2 &amp; \text{si } x &lt; 2 \\
+4x - 4 &amp; \text{si } x \geq 2
+\end{cases}
+\]</p>
+<p>Estudiem la <strong>continuïtat en \(x = 2\)</strong>:</p>
+<ul>
+<li>Límits laterals:
+<ul>
+<li>\( \lim_{x \to 2^-} x^2 = 4 \)</li>
+<li>\( \lim_{x \to 2^+} (4x - 4) = 4 \)</li>
+</ul>
+</li>
+<li>Valor de la funció: \( f(2) = 4 \Rightarrow \text{(està definit)} \)</li>
+</ul>
+<p>Com que coincideixen els límits i el valor, podem afirmar que <strong>\(f(x)\) és contínua en \(x = 2\)</strong>.</p>
+<div id="jxg-discontinua" class="jxgbox" style="width: 500px; height: 300px; margin: auto;"></div>
+<script type="text/javascript">
+  const board1 = JXG.JSXGraph.initBoard('jxg-discontinua', {
+    boundingbox: [-1, 10, 5, -2],
+    axis: true,
+    showCopyright: false,
+    showNavigation: false,
+    pan: { enabled: true, needTwoFingers: false }
+  });
+  // Primer tros: f(x) = x^2, per a x < 2
+  board1.create('functiongraph', [
+    function(x) { return x*x; },
+    -1, 2
+  ], {strokeColor: 'blue'});
+  // Punt buit (x = 2, y = 4), no definit al primer tros
+  board1.create('point', [2, 4], {
+    face: 'o',
+    fillColor: 'white',
+    strokeColor: 'blue',
+    fixed: true,
+    name: ''
+  });
+  // Segon tros: f(x) = x + 1, per a x ≥ 2
+  board1.create('functiongraph', [
+    function(x) { return 4*x-4; },
+    2, 5
+  ], {strokeColor: 'red'});
+  // Punt tancat (x = 2, y = 3), valor real del segon tros
+  board1.create('point', [2, 4], {
+    size: 1,
+    face: 'o',
+    fillColor: 'red',
+    strokeColor: 'red',
+    fixed: true,
+    name: ''
+  });
+</script>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+        <!-- Livereload script (if served using the cli tool) -->
+        <script>
+            const wsProtocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsAddress = wsProtocol + "//" + location.host + "/" + "__livereload";
+            const socket = new WebSocket(wsAddress);
+            socket.onmessage = function (event) {
+                if (event.data === "reload") {
+                    socket.close();
+                    location.reload();
+                }
+            };
+
+            window.onbeforeunload = function() {
+                socket.close();
+            }
+        </script>
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            MathJax.Hub.Register.StartupHook('End', function() {
+                window.setTimeout(window.print, 100);
+            });
+        });
+        </script>
+
+    </div>
+    </body>
+</html>

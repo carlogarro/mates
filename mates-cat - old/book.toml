@@ -1,0 +1,10 @@
+[book]
+authors = ["Carlos García Rodríguez"]
+language = "ca"
+src = "src"
+title = "Matemàtiques Aplicades a les Ciències Socials II"
+
+[output.html]
+mathjax-support = true
+numbering = false
+no-section-label = true

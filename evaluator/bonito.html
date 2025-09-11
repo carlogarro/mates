@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Participación en clase</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f0f4f8; display: flex; flex-direction: column; align-items: center; padding: 20px; }
+    h1 { color: #333; }
+    #alumno { font-size: 2rem; margin: 20px 0; padding: 20px; background: #e0f7fa; border-radius: 15px; min-width: 200px; text-align: center; transition: transform 0.2s, background 0.3s;}
+    #alumno.correct { background: #c8e6c9; transform: scale(1.1); }
+    #alumno.incorrect { background: #ffcdd2; transform: scale(1.1); }
+    button { padding: 10px 20px; margin: 5px; font-size: 1rem; border-radius: 10px; border: none; cursor: pointer; transition: transform 0.2s; }
+    button:hover { transform: scale(1.05); }
+    button.correct { background: #4caf50; color: white; }
+    button.incorrect { background: #f44336; color: white; }
+    button.elegir { background: #03a9f4; color: white; }
+    table { margin-top: 30px; border-collapse: collapse; width: 80%; max-width: 500px; }
+    th, td { border: 1px solid #ccc; padding: 8px 12px; text-align: center; }
+    th { background: #03a9f4; color: white; }
+    td { background: #fff; }
+  </style>
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+    import { getFirestore, collection, getDocs, doc, updateDoc } 
+      from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+        apiKey: "AIzaSyBICN6ie-yV2dL3pQeKnR_qFFQ-LsAkuVs",
+        authDomain: "evaluacion-continua-39a84.firebaseapp.com",
+        projectId: "evaluacion-continua-39a84",
+        storageBucket: "evaluacion-continua-39a84.firebasestorage.app",
+        messagingSenderId: "1073788724297",
+        appId: "1:1073788724297:web:ecd14963702acdc0054b98",
+        measurementId: "G-1QSK510FL1"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    let alumnos = [];
+    let alumnoActual = null;
+
+    async function cargarAlumnos() {
+      alumnos = [];
+      const querySnapshot = await getDocs(collection(db, "alumnos"));
+      querySnapshot.forEach((docSnap) => {
+        alumnos.push({ id: docSnap.id, ...docSnap.data() });
+      });
+      mostrarTabla();
+    }
+
+    async function registrar(resultado) {
+      if (!alumnoActual) return alert("Primero elige un alumno");
+      const ref = doc(db, "alumnos", alumnoActual.id);
+      let nuevoValor = alumnoActual[resultado] + 1;
+      await updateDoc(ref, { [resultado]: nuevoValor });
+      alumnoActual[resultado] = nuevoValor; // actualizar local
+      mostrarTabla();
+      const div = document.getElementById("alumno");
+      div.className = resultado === 'bien' ? 'correct' : 'incorrect';
+      setTimeout(() => div.className = '', 500);
+      alumnoActual = null;
+      div.textContent = '---';
+    }
+
+    function elegirAlumno() {
+      if (alumnos.length === 0) return alert("No hay alumnos");
+      const idx = Math.floor(Math.random() * alumnos.length);
+      alumnoActual = alumnos[idx];
+      document.getElementById("alumno").textContent = alumnoActual.id;
+      document.getElementById("alumno").className = '';
+    }
+
+    function mostrarTabla() {
+      const cuerpo = document.getElementById("cuerpoTabla");
+      cuerpo.innerHTML = "";
+      alumnos.forEach(a => {
+        let fila = `<tr>
+          <td>${a.id}</td>
+          <td>${a.bien || 0}</td>
+          <td>${a.mal || 0}</td>
+        </tr>`;
+        cuerpo.innerHTML += fila;
+      });
+    }
+
+    // Exponer funciones globalmente
+    window.elegirAlumno = elegirAlumno;
+    window.registrar = registrar;
+    window.cargarAlumnos = cargarAlumnos;
+
+    window.onload = cargarAlumnos;
+  </script>
+</head>
+<body>
+  <h1>Participación en clase</h1>
+
+  <div id="alumno">---</div>
+  <button class="elegir" onclick="elegirAlumno()">🎲 Elegir alumno</button>
+  <button class="correct" onclick="registrar('bien')">✅ Bien</button>
+  <button class="incorrect" onclick="registrar('mal')">❌ Mal</button>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Alumno</th>
+        <th>Bien</th>
+        <th>Mal</th>
+      </tr>
+    </thead>
+    <tbody id="cuerpoTabla"></tbody>
+  </table>
+</body>
+</html>
