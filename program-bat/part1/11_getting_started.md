@@ -58,10 +58,10 @@ lang: ca
 }
 </style>
 
-
-
 # Primeres passes amb Python
+
 ## Objectius
+
 - Preparar el teu equip per programar.
 - Escriure i executar el teu primer programa en Python
 - Aprendre a utilitzar la comanda `print()`
@@ -70,9 +70,10 @@ lang: ca
 ---
 
 ## Com obrir el terminal i usar Python
+
 - A **macOS**: Ja ve instal·lat per defecte. Obre l’app **Terminal** (la trobaràs a Aplicacions → Altres).
-- A **Linux**: Ja ve instal·lat per defecte. Busca **Terminal** al menú d’aplicacions. També serveix el *shortcut* `control + T`
-- A **Windows**: Per instal·lar-ho, entra a la [Microsoft Store](https://apps.microsoft.com) i busca *python*. Mira el següent tutorial: https://www.youtube.com/watch?v=V51Uj4Vl9zA
+- A **Linux**: Ja ve instal·lat per defecte. Busca **Terminal** al menú d’aplicacions. També serveix el _shortcut_ `Ctrl + Alt + T`
+- A **Windows**: Per instal·lar-ho, entra a la [Microsoft Store](https://apps.microsoft.com) i busca _python_. Mira el següent tutorial: https://www.youtube.com/watch?v=V51Uj4Vl9zA
 - A **Chromebook**: Aquests portàtils tenen recursos limitats. Per ara, feu servir https://www.online-python.com/
 
 ---
@@ -87,7 +88,7 @@ python3 --version
 
 Si mostra una versió (per exemple Python 3.11.6), ja el tens instal·lat Si no, cal instal·lar-lo des de [python.org](python.org).
 
-Si l'has instal·lat a Windows, només és necessari buscar-lo entre els programes instal·lats i obrir-lo com un programa qualsevol. També pots obrir la terminal buscand *PowerShell*.
+Si l'has instal·lat a Windows, només és necessari buscar-lo entre els programes instal·lats i obrir-lo com un programa qualsevol. També pots obrir la terminal buscand _PowerShell_.
 
 ---
 
@@ -115,6 +116,7 @@ Hola!
 Només serveix per fer proves ràpides o codi curt
 
 Per això, normalment farem servir [Visual Studio Code](https://code.visualstudio.com/)
+
 - Editor modern i intuïtiu
 - Permet gestionar fitxers i projectes grans
 - Es pot ampliar amb extensions
@@ -127,12 +129,24 @@ El terminal és útil per començar i entendre Python, però Visual Studio Code 
 ## Comanda `print()`
 
 ```python
-print("Hola, món!")
+print("Hola!")
 ```
 
 Mostra text a la pantalla
 El text ha d'anar entre cometes
 Sense cometes, es produeix un error
+
+Prova el següent
+
+```python
+print(Hola!)
+```
+
+---
+
+Anem a la pàgina del [curs](https://programming-24.mooc.fi/) de la Universitat de Hèlsinki. Si no us heu enregistrat encara, seguiu les [instruccions](https://educaciodigital.cat/ies-viladegracia/moodle/mod/page/view.php?id=352247) del Moodle.
+
+Resoldrem els següents problemes a classe.
 
 <div class="exercici-classe">
   Emoticon
@@ -150,8 +164,8 @@ print("Practiquem la comanda print.")
 print("Aquest programa mostra tres línies de text.")
 ```
 
-Les comandes s'executen en l'ordre
-Cada línia es mostra per separat
+Les comandes s'executen en ordre descendent.
+Cada línia es mostra per separat quan usem `print`.
 
 <div class="exercici-casa">
   Row, Row, Row Your Boat
@@ -172,13 +186,13 @@ El resultat de l'operació es mostra a la pantalla
 
 <div class="exercici-classe">
   Minutes in a year
-
+  
   Print some code
 </div>
 
 ---
 
-## Diferència entre cadenes i operacions
+## Diferència entre text i operacions
 
 ```python
 print(2 + 2 * 10)
