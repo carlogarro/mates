@@ -187,7 +187,7 @@ async function cargarClases() {
   });
 
   const select = document.getElementById("claseSelect");
-  select.innerHTML = `<option value="">-- Selecciona una clase --</option>`;
+  select.innerHTML = `<option value="">-- Selecciona una classe --</option>`;
   clases.forEach((c) => {
     select.innerHTML += `<option value="${c}">${c}</option>`;
   });
@@ -227,7 +227,7 @@ function mostrarEmoji(resultado) {
 document.addEventListener("DOMContentLoaded", async () => {
   document.getElementById("btnCargarClase").addEventListener("click", () => {
     const clase = document.getElementById("claseSelect").value;
-    if (!clase) return alert("Selecciona una clase");
+    if (!clase) return alert("Selecciona una classe");
     claseActual = clase;
     cargarAlumnos(clase);
   });
@@ -266,9 +266,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     .getElementById("btnMalClase")
     .addEventListener("click", () => registrar("clase", "mal"));
 
-  document.getElementById("toggleDark").addEventListener("click", () => {
+  /*   document.getElementById("toggleDark").addEventListener("click", () => {
     document.documentElement.classList.toggle("dark");
-  });
+  }); */
 
   // Al iniciar, cargar lista de clases
   await cargarClases();
