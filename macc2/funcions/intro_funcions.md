@@ -107,16 +107,17 @@ Quan estudiem una funció, seguirem sempre aquest ordre de punts:
 
 4. **Assimptotes**
 
-   - Vertical ($x = a$).
-   - Horitzontal ($y = b$).
+   - Vertical (en un punt la funció tendeix a l'infinit).
+   - Horitzontal (a l'infinit la funció tendeix cap a un punt).
 
 5. **Talls amb els eixos**
    - Tall amb l’eix $X$: $f(x)=0$.
-   - Tall amb l’eix $Y$: $f(0)$, si està definit.
+   - Tall amb l’eix $Y$: $f(0)$.
 
 ---
 
 6. **Derivades**
+   Ens informen sobre el pendent (o inclinació) de la funció en qualsevol punt.
 
    - Intervals de creixement i decreixement, màxims, mínims i punts d'inflexió.
 
