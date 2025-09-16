@@ -127,6 +127,9 @@ function mostrarTabla() {
         <td class="px-4 py-2 text-center text-red-600 font-semibold">${
           a.malClase || 0
         }</td>
+        <td class="px-4 py-2 text-center text-red-600 font-semibold">${
+          a.bienDeberes * 3 - a.malDeberes * 3 + a.bienClase - a.malClase || 0
+        }</td>
       </tr>`;
     cuerpo.innerHTML += fila;
   });
