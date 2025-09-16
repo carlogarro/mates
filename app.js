@@ -127,9 +127,6 @@ function mostrarTabla() {
         <td class="px-4 py-2 text-center text-red-600 font-semibold">${
           a.malClase || 0
         }</td>
-        <td class="px-4 py-2 text-center text-red-600 font-semibold">${
-          a.bienDeberes * 3 - a.malDeberes * 3 + a.bienClase - a.malClase || 0
-        }</td>
       </tr>`;
     cuerpo.innerHTML += fila;
   });
@@ -151,11 +148,9 @@ function mostrarTablaCercanos() {
   alumnos.sort((a, b) => b.puntosTotales - a.puntosTotales);
 
   const idx = alumnos.findIndex((a) => a.id === alumnoActual.id);
-  const inicio = Math.max(0, idx - 2);
+  let inicio = Math.max(0, idx - 2);
   const fin = Math.min(alumnos.length - 1, idx + 2);
   const sublista = alumnos.slice(inicio, fin + 1);
-
-  console.log(sublista);
 
   const cuerpo = document.getElementById("cuerpoTabla");
   cuerpo.innerHTML = "";
@@ -165,6 +160,7 @@ function mostrarTablaCercanos() {
       <tr class="${
         a.id === alumnoActual.id ? "bg-yellow-50" : "hover:bg-gray-50"
       }">
+        <td class="px-4 py-2 text-center font-bold">${inicio + 1}</td>
         <td class="px-4 py-2 font-medium text-gray-700">${a.nombre}</td>
         <td class="px-4 py-2 text-center text-green-600 font-semibold">${
           a.bienDeberes || 0
@@ -178,8 +174,17 @@ function mostrarTablaCercanos() {
         <td class="px-4 py-2 text-center text-red-600 font-semibold">${
           a.malClase || 0
         }</td>
+        <td class="px-4 py-2 text-center font-semibold ${
+          a.bienDeberes * 3 - a.malDeberes * 3 + a.bienClase - a.malClase >= 20
+            ? "text-green-600"
+            : "text-red-600"
+        }">  ${
+      a.bienDeberes * 3 - a.malDeberes * 3 + a.bienClase - a.malClase || 0
+    }</td>
       </tr>`;
     cuerpo.innerHTML += fila;
+    inicio += 1;
+    console.log(inicio);
   });
 }
 
@@ -192,7 +197,7 @@ async function cargarClases() {
   });
 
   const select = document.getElementById("claseSelect");
-  select.innerHTML = `<option value="">-- Selecciona una clase --</option>`;
+  select.innerHTML = `<option value="">-- Selecciona una classe --</option>`;
   clases.forEach((c) => {
     select.innerHTML += `<option value="${c}">${c}</option>`;
   });
