@@ -289,13 +289,61 @@ $x_{1}\approx -0.53,\quad x_{2}\approx 2.53$
 
 ---
 
-## Concavitat i punts d'inflexió
+## Inequacions
 
-- **Segona derivada:**
-  $$
-  f''(x)=6x-6.
-  $$
-- Punt d'inflexió on $f''(x)=0$ → $x=1$  
-  Valor: $f(1)=1-3-4+12=6$.
-  - Per $x<1$: $f''(x)<0$ ⇒ concava cap a baix.
-  - Per $x>1$: $f''(x)>0$ ⇒ concava cap a dalt.
+$$
+f(x) > 0 → x^{3}-3x^{2}-4x+12 > 0
+$$
+
+---
+
+<style scoped>section { font-size: 33px; }</style>
+
+**PAU CAT CCSS JUNY 2011**
+Una empresa que fabrica bicicletes ven la totalitat de la producció. Anomenarem $x$ el nombre de bicicletes que fabrica mensualment. Els costos mensuals de producció, en euros, segueixen la funció $C(x) = 180x + 12000$. La venda de les bicicletes li reporta uns ingressos que segueixen la funció $I(x)=500x-\dfrac{1}{2}x^2$. Els beneficis de l’empresa són, lògicament, la diferència entre ingressos i costos.
+
+- En quin interval cal situar la producció per a no perdre diners?
+- Quantes bicicletes ha de produir mensualment l’empresa per a obtenir el benefici màxim? En aquest cas, quant guanya per cada bicicleta?
+
+---
+
+<style scoped>section { font-size: 33px; }</style>
+
+**PAU CAT CCSS SET 2011**
+Un estudi de laboratori sobre la propagació d’una espècie de mosques mostra que, passades $t$ setmanes, el nombre d’individus és $N(t)$ centenars de mosques, en què $N(t) = -(t - 2)^2 + 9$.
+
+- Quantes mosques formen la població al cap d’una setmana? Quantes setmanes han de transcórrer fins a la desaparició total de les mosques?
+- Quina és la població màxima d’individus? Quantes setmanes han passat per a obtenir aquesta població?
+
+---
+
+<style scoped>section { font-size: 33px; }</style>
+
+**PAU CAT CCSS JUNY 2017**
+Des d’una barca es dispara una bengala de salvament marítim que s’apaga al cap de 4 minuts. En aquest interval de temps, es comprova que la intensitat lumínica de la bengala en funció del temps, mesurada en percentatges del 0\% al 100\%, queda perfectament descrita per l’expressió $L(t) = 25\cdot t\cdot (4-t)$, en què el temps $t$ varia entre 0 i 4 minuts.
+
+- Calculeu per a quin valor de $t$ el percentatge d’intensitat lumínica serà màxim.
+- Si des de la costa la bengala només és visible quan la seva intensitat lumínica és superior al 75\%, quin és l’interval de temps en què serà visible des de la costa i, per tant, serà més factible el salvament?
+
+---
+
+<style scoped>section { font-size: 33px; }</style>
+
+**PAU CAT CCSS SET 2020**
+
+La funció $Q(x) = (x + 1)^2 (32 - x)$, en què $x \in [-1, 32]$, representa la producció, en quilograms, d’una hortalissa en un hivernacle en funció de la temperatura $x$, expressada en
+graus centígrads (°C), que pot variar entre -1 °C i 32 °C.
+
+- Calculeu quina és la temperatura de l’hivernacle amb la qual s’obté la màxima producció. Quina producció d’hortalissa obtindrem a aquesta temperatura?
+- Calculeu a quines temperatures s’assoleix el nivell mínim de producció i quin és aquest valor mínim.
+
+---
+
+<style scoped>section { font-size: 33px; }</style>
+
+**PAU CAT CCSS SET 2021**
+
+Una empresa posa a la venda un producte que distribueix en caixes. El benefici $B$ obtingut per l’empresa, expressat en milers d’euros, és donat per l’expressió $B(x) = -x^2 + 16x - 55$, en què $x > 0$ és el preu de venda de cada caixa, expressat en euros.
+
+- Quin benefici obtindrà si el preu de venda de cada caixa és de 6 euros? Entre quins valors cal fixar el preu de venda d’una caixa per a obtenir beneficis?
+- A quin preu ha de vendre cada caixa perquè el benefici sigui el més gran possible? Quin és aquest benefici màxim?
