@@ -178,4 +178,9 @@ Durant la darrera epidèmia d’Ebola es va considerar que, sense cap intervenci
 
 ---
 
-I need to highlight these <mark>very important words</mark>
+## PAU CAT CCSS JUNY 2015
+
+La funció derivada d’una funció $f$ és $f'(x) = e^{–2x} · (x – x^2)$
+
+- Estudieu el creixement i el decreixement de la funció $f$.
+- Si la funció $f$ té extrems relatius, indiqueu-ne les abscisses i classifiqueu-los.

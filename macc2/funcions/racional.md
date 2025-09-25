@@ -84,9 +84,11 @@ $$
 
 1. **Identifica el denominador** $Q(x)$.
 2. **Resol l’equació**:
+
    $$
    Q(x) = 0
    $$
+
    - Troba quins valors de $x$ **anul·len el denominador**.
 
 3. **Exclou aquests valors** del domini.
@@ -101,16 +103,19 @@ $$
 ---
 
 ### Funció donada:
+
 $$
 f(x) = \frac{2x + 1}{x^2 - 4}
 $$
 
-**1. Identifica el denominador:**  
+**1. Identifica el denominador:**
+
 $$
 Q(x) = x^2 - 4
 $$
 
-**2. Troba quan el denominador s’anul·la:**  
+**2. Troba quan el denominador s’anul·la:**
+
 $$
 x^2 - 4 = 0 \Rightarrow x = \pm2
 $$
@@ -121,6 +126,7 @@ $$
 Aquests **valors s’han d’excloure** del domini perquè la funció no està definida en aquests punts.
 
 **Forma amb intervals:**
+
 $$
 \operatorname{dom}(f) = (-\infty, -2) \cup (-2, 2) \cup (2, \infty)
 $$
@@ -129,11 +135,11 @@ $$
 Tots els nombres reals **excepte** $x = -2$ i $x = 2$
 
 ### Observació:
+
 - El numerador $2x + 1$ pot ser qualsevol valor; no afecta el domini.
 - El problema està únicament en el **denominador**.
 
 ---
-
 
 ## Exemples
 
@@ -141,7 +147,7 @@ $$
 f(x) = \frac{x^2 - 1}{x - 3}
 $$
 
-el domini és $\mathbb{R} \setminus \\{3\\}$, és a dir, tots els reals menys $x=3$. Ja que si la $x=3$ el denominador val zero.
+el domini és $\mathbb{R}-\{3\}$, és a dir, tots els reals menys $x=3$. Ja que si la $x=3$ el denominador val zero.
 
 <div id="jxgbox" class="jxgbox" style="width:500px; height:300px; margin: 0 auto;"></div>
 <script>
@@ -171,7 +177,7 @@ $x - 3 = 0 \Rightarrow x = 3$
 Per tant,
 
 $$
-\operatorname{dom}(f) = \mathbb{R} \setminus \{3\}
+\operatorname{dom}(f) = \mathbb{R} - \{3\}
 $$
 
 <div id="jxgbox1" class="jxgbox" style="width:400px; height:300px; margin: 0 auto;"></div>
@@ -208,7 +214,7 @@ Denominador: $x^2 - 4 = 0 \Rightarrow x = \pm 2$
 Per tant,
 
 $$
-\operatorname{dom}(f) = \mathbb{R} \setminus \{-2, 2\}
+\operatorname{dom}(f) = \mathbb{R} - \{-2, 2\}
 $$
 
 <div id="jxgbox2" class="jxgbox" style="width:400px; height:300px; margin: 0 auto;"></div>
@@ -242,6 +248,36 @@ straightLast: false
 
 ---
 
-<div class="exercici-casa">
-Name twice
-</div>
+**PAU CAT CCSS JUNY 2010**
+
+Considereu la funció següent: $f(x)=\dfrac{3x-1}{x+2}$
+
+- Determineu-ne les asímptotes horitzontals i verticals, si n’hi ha.
+- Si $f'(x) > 0$ en tot el domini de la funció $f$, calculeu els límits laterals quan $x$ tendeix a $-2$ i feu un esbós de la gràfica de la funció $f$.
+
+---
+
+**PAU CAT CCSS SET 2015**
+
+S’ha observat que el nombre d’entrades que es venen al cinema d’un poble està lligat al sou mitjà $x$ de la població, expressat en milers d’euros, segons la funció $N(x)=\dfrac{50x}{x^2+1}$.
+
+- Determineu el sou mitjà de la població que correspon a la màxima venda d’entrades i justifiqueu-ho.
+- Si suposem que els sous de la població creixen indefinidament, com incidiria aquest fet en la venda d’entrades del cinema?
+
+---
+
+**PAU CAT CCSS JUNY 2018**
+
+El nombre d’individus, en milions, d’una població ve determinat per la funció $P(t)=\dfrac{5+t^2}{(t+1)^2}$, en què $t$ mesura el nombre d’anys transcorreguts.
+
+- Quina és la població inicial i la població després de 9 anys? A partir de quin moment
+- Amb el pas dels anys, cap a quin valor tendirà el nombre d’individus de la població?
+
+---
+
+**PAU CAT CCSS SET 2019**
+
+Es preveu un canvi important en la població d’una determinada zona per qüestions mediambientals. El nombre d’habitants de la zona, en milions, vindrà donat per la funció $P(t)=\dfrac{t^2+28}{(t+2)^2}$, en què $t$ mesura el temps en anys des del moment actual ($t = 0$).
+
+- Digueu quin és el nombre d’habitants de la zona actualment i quin serà aquest nombre a molt llarg termini.
+- En quin moment s’arribarà al nombre mínim d’habitants? Quants habitants hi haurà en aquell moment? Quin és el nombre màxim d’habitants que s’assoleix en aquesta zona?

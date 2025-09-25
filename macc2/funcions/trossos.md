@@ -145,6 +145,8 @@ Estudiem la **continuïtat en $x = 2$**:
 
 Com que coincideixen els límits i el valor, podem afirmar que **$f(x)$ és contínua en $x = 2$**.
 
+---
+
 <div id="jxg-discontinua" class="jxgbox" style="width: 500px; height: 300px; margin: auto;"></div>
 <script type="text/javascript">
   const board1 = JXG.JSXGraph.initBoard('jxg-discontinua', {
