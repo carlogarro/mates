@@ -270,7 +270,7 @@ S’ha observat que el nombre d’entrades que es venen al cinema d’un poble e
 
 El nombre d’individus, en milions, d’una població ve determinat per la funció $P(t)=\dfrac{5+t^2}{(t+1)^2}$, en què $t$ mesura el nombre d’anys transcorreguts.
 
-- Quina és la població inicial i la població després de 9 anys? A partir de quin moment
+- Quina és la població inicial i la població després de 9 anys? A partir de quin moment la població serà inferior a un milió d’individus?
 - Amb el pas dels anys, cap a quin valor tendirà el nombre d’individus de la població?
 
 ---
